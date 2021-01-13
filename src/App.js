@@ -9,6 +9,7 @@ import HomePage from './components/HomePage';
 import NotFoundPage from './components/NotFoundPage';
 
 function App() {
+  const BACKEND_API = process.env.REACT_APP_BACKEND_API;
   return (
     <div className='App'>
       <MainNavBar />
@@ -21,7 +22,7 @@ function App() {
             <ReadingPage />
           </Route>
           <Route exact path='/'>
-            <HomePage />
+            <HomePage BACKEND_API={BACKEND_API} />
           </Route>
           <Route>
             <NotFoundPage />
