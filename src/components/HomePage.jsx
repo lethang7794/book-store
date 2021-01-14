@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Books from './Books';
 import Pagination from './Pagination';
+import SearchForm from './SearchForm';
 
 const HomePage = ({ BACKEND_API }) => {
   const PER_PAGE = 10;
@@ -11,6 +12,9 @@ const HomePage = ({ BACKEND_API }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [books, setBooks] = useState([]);
 
+  const [searchInput, setSearchInput] = useState('');
+  const [query, setQuery] = useState('');
+
   useEffect(() => {
     async function fetchBooks() {
       setIsLoading(true);
@@ -18,6 +22,10 @@ const HomePage = ({ BACKEND_API }) => {
       try {
         let url = `${BACKEND_API}/books?_page=${currentPage}&_limit=${PER_PAGE}`;
         // e.g. http://localhost:5000/books?_page=1&_limit=10
+
+        if (query) {
+          url += `&q=${query}`;
+        }
 
         const response = await fetch(url);
         const data = await response.json();
@@ -35,11 +43,13 @@ const HomePage = ({ BACKEND_API }) => {
         );
       }
 
-      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
     }
 
     fetchBooks();
-  }, [currentPage, BACKEND_API]);
+  }, [currentPage, query, BACKEND_API]);
 
   const handleNextPageClick = () => {
     setCurrentPage((currentPage) => currentPage + 1);
@@ -49,9 +59,24 @@ const HomePage = ({ BACKEND_API }) => {
     setCurrentPage((currentPage) => currentPage - 1);
   };
 
+  const handleSearchInputChange = (e) => {
+    setSearchInput(e.target.value);
+  };
+
+  const handleSearchFormSubmit = (e) => {
+    e.preventDefault();
+    setQuery(searchInput);
+  };
+
   return (
     <>
-      <h1>Homepage</h1>
+      <h1 className='text-center'>Homepage</h1>
+
+      <SearchForm
+        handleSearchFormSubmit={handleSearchFormSubmit}
+        handleSearchInputChange={handleSearchInputChange}
+        searchInput={searchInput}
+      />
 
       {errorMessage ? <div>{errorMessage}</div> : null}
 
