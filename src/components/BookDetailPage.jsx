@@ -54,6 +54,24 @@ const BookDetailPage = () => {
     }
   };
 
+  const handleUnfavoriteBook = async () => {
+    const url = `${BACKEND_API}/favorites/${id}`;
+    try {
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (response.ok) {
+        toast.error('Removed from favorites!');
+      } else {
+        toast.info('Already removed from favorites!');
+      }
+    } catch (error) {
+      toast.warn("We can't connect with the server!");
+    }
+  };
+
   if (!book) return null;
   return (
     <>
@@ -80,12 +98,22 @@ const BookDetailPage = () => {
                 <strong>Language</strong>: {book.language}
               </div>
             </div>
-            <Button
-              className='d-block mx-auto'
-              onClick={() => handleFavoriteBook(book)}
-            >
-              Favorite
-            </Button>
+
+            <div className='d-flex justify-content-center'>
+              <Button
+                className='btn-success'
+                onClick={() => handleFavoriteBook(book)}
+              >
+                Favorite
+              </Button>
+
+              <Button
+                className='btn-danger'
+                onClick={() => handleUnfavoriteBook(book)}
+              >
+                Unfavorite
+              </Button>
+            </div>
           </div>
         </div>
       )}
