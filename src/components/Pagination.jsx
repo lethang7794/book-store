@@ -6,7 +6,9 @@ const Pagination = ({
   totalPages,
   handlePreviousPageClick,
   handleNextPageClick,
+  isLoading,
 }) => {
+  if (isLoading !== false) return null;
   return (
     <div className='Pagination'>
       {currentPage > 1 ? (

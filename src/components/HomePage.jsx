@@ -45,7 +45,7 @@ const HomePage = ({ BACKEND_API }) => {
 
       setTimeout(() => {
         setIsLoading(false);
-      }, 1000);
+      }, 500);
     }
 
     fetchBooks();
@@ -90,6 +90,7 @@ const HomePage = ({ BACKEND_API }) => {
             totalPages={totalPages}
             handleNextPageClick={handleNextPageClick}
             handlePreviousPageClick={handlePreviousPageClick}
+            isLoading={isLoading}
           />
         </>
       )}
