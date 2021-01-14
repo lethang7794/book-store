@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 const BookDetailPage = () => {
   const { id } = useParams();
@@ -32,6 +33,25 @@ const BookDetailPage = () => {
     getBook();
   }, [id, BACKEND_API]);
 
+  const handleFavoriteBook = async (favoriteBook) => {
+    const url = `${BACKEND_API}/favorites`;
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(favoriteBook),
+      });
+
+      if (response.ok) {
+        alert('Added to favorites!');
+      } else {
+        alert('Already added to favorites!');
+      }
+    } catch (error) {
+      alert("We can't connect with the server!");
+    }
+  };
+
   if (!book) return null;
   return (
     <>
@@ -58,6 +78,12 @@ const BookDetailPage = () => {
                 <strong>Language</strong>: {book.language}
               </div>
             </div>
+            <Button
+              className='d-block mx-auto'
+              onClick={() => handleFavoriteBook(book)}
+            >
+              Favorite
+            </Button>
           </div>
         </div>
       )}
