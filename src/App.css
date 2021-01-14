@@ -23,3 +23,15 @@
     column-count: 4;
   }
 }
+
+/* PAGINATION */
+button + button {
+  margin-left: 1rem;
+}
+
+.Pagination {
+  display: flex;
+  justify-content: center;
+
+  margin: 1rem;
+}

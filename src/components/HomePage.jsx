@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Books from './Books';
+import Pagination from './Pagination';
 
 const HomePage = ({ BACKEND_API }) => {
-  const limit = 10;
+  const PER_PAGE = 10;
+  const totalPages = 100 / PER_PAGE;
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const [pageNum, setPageNum] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [books, setBooks] = useState([]);
@@ -14,8 +16,8 @@ const HomePage = ({ BACKEND_API }) => {
       setIsLoading(true);
 
       try {
+        let url = `${BACKEND_API}/books?_page=${currentPage}&_limit=${PER_PAGE}`;
         // e.g. http://localhost:5000/books?_page=1&_limit=10
-        const url = `${BACKEND_API}/books?_page=${pageNum}&_limit=${limit}`;
 
         const response = await fetch(url);
         const data = await response.json();
@@ -37,7 +39,15 @@ const HomePage = ({ BACKEND_API }) => {
     }
 
     fetchBooks();
-  }, [pageNum, BACKEND_API]);
+  }, [currentPage, BACKEND_API]);
+
+  const handleNextPageClick = () => {
+    setCurrentPage((currentPage) => currentPage + 1);
+  };
+
+  const handlePreviousPageClick = () => {
+    setCurrentPage((currentPage) => currentPage - 1);
+  };
 
   return (
     <>
@@ -48,7 +58,15 @@ const HomePage = ({ BACKEND_API }) => {
       {isLoading ? (
         <div>Loading</div>
       ) : (
-        <Books books={books} BACKEND_API={BACKEND_API} />
+        <>
+          <Books books={books} BACKEND_API={BACKEND_API} />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            handleNextPageClick={handleNextPageClick}
+            handlePreviousPageClick={handlePreviousPageClick}
+          />
+        </>
       )}
     </>
   );
