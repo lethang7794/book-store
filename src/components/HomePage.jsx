@@ -12,8 +12,7 @@ const HomePage = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [books, setBooks] = useState([]);
 
-  const [searchInput, setSearchInput] = useState('');
-  const [query, setQuery] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     async function fetchBooks() {
@@ -21,11 +20,12 @@ const HomePage = () => {
 
       try {
         const BACKEND_API = process.env.REACT_APP_BACKEND_API;
+
         let url = `${BACKEND_API}/books?_page=${currentPage}&_limit=${PER_PAGE}`;
         // e.g. http://localhost:5000/books?_page=1&_limit=10
 
-        if (query) {
-          url += `&q=${query}`;
+        if (searchTerm) {
+          url += `&q=${searchTerm}`;
         }
 
         const response = await fetch(url);
@@ -35,13 +35,11 @@ const HomePage = () => {
           setBooks(data);
         } else {
           setErrorMessage(
-            `Sorry, something went wrong while we were searching for the books (${data.message})`
+            `Sorry. Something went wrong while we were searching for the books.`
           );
         }
       } catch (error) {
-        setErrorMessage(
-          `Sorry, we can't connect to the server (${error.message})`
-        );
+        setErrorMessage(`Sorry. We can't connect to the server.`);
       }
 
       setTimeout(() => {
@@ -50,7 +48,7 @@ const HomePage = () => {
     }
 
     fetchBooks();
-  }, [currentPage, query]);
+  }, [currentPage, searchTerm]);
 
   const handleNextPageClick = () => {
     setCurrentPage((currentPage) => currentPage + 1);
@@ -60,24 +58,16 @@ const HomePage = () => {
     setCurrentPage((currentPage) => currentPage - 1);
   };
 
-  const handleSearchInputChange = (e) => {
-    setSearchInput(e.target.value);
-  };
-
-  const handleSearchFormSubmit = (e) => {
-    e.preventDefault();
-    setQuery(searchInput);
+  const handleSearchFormSubmit = (searchTermArg) => {
+    setCurrentPage(1);
+    setSearchTerm(searchTermArg);
   };
 
   return (
     <>
       <h1 className='text-center'>Homepage</h1>
 
-      <SearchForm
-        handleSearchFormSubmit={handleSearchFormSubmit}
-        handleSearchInputChange={handleSearchInputChange}
-        searchInput={searchInput}
-      />
+      <SearchForm handleSearchFormSubmit={handleSearchFormSubmit} />
 
       {errorMessage ? <div>{errorMessage}</div> : null}
 
