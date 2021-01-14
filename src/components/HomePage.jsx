@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Books from './Books';
 
 const HomePage = ({ BACKEND_API }) => {
   const limit = 10;
@@ -47,7 +48,7 @@ const HomePage = ({ BACKEND_API }) => {
       {isLoading ? (
         <div>Loading</div>
       ) : (
-        books.map((book) => <div key={book.id}>{book.title}</div>)
+        <Books books={books} BACKEND_API={BACKEND_API} />
       )}
     </>
   );
