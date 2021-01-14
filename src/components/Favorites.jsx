@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { ToastContainer, toast, Zoom } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Books from './Books';
 
 const Favorites = () => {
@@ -36,6 +38,12 @@ const Favorites = () => {
     <>
       <h1 className='text-center'>Favorites</h1>
       {isLoading ? <div>Loading</div> : <Books books={favorites} />}
+      <ToastContainer
+        transition={Zoom}
+        position='bottom-right'
+        newestOnTop
+        limit={3}
+      />
     </>
   );
 };

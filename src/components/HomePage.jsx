@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { ToastContainer, toast, Zoom } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Books from './Books';
 import Pagination from './Pagination';
 import SearchForm from './SearchForm';
@@ -85,6 +87,13 @@ const HomePage = () => {
           />
         </>
       )}
+
+      <ToastContainer
+        transition={Zoom}
+        position='bottom-right'
+        newestOnTop
+        limit={3}
+      />
     </>
   );
 };

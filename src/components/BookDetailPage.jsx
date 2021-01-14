@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import { ToastContainer, toast, Zoom } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const BookDetailPage = () => {
   const { id } = useParams();
@@ -87,6 +89,12 @@ const BookDetailPage = () => {
           </div>
         </div>
       )}
+      <ToastContainer
+        transition={Zoom}
+        position='bottom-right'
+        newestOnTop
+        limit={3}
+      />
     </>
   );
 };
