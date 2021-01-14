@@ -11,6 +11,7 @@ const Favorites = () => {
     async function fetchFavorite() {
       setIsLoading(true);
 
+      let message;
       try {
         const BACKEND_API = process.env.REACT_APP_BACKEND_API;
         const url = `${BACKEND_API}/favorites`;
@@ -21,13 +22,12 @@ const Favorites = () => {
         if (response.ok) {
           setFavorites(data);
         } else {
-          alert(
-            `Sorry. Something went wrong while we were searching for your favorite books. (${response.message})`
-          );
+          message = `Sorry. Something went wrong while we were loading for your favorite books. (${response.message})`;
         }
       } catch (error) {
-        alert(`Sorry. We can't connect to the server.`);
+        message = `Sorry. We can't connect to the server.`;
       }
+      if (message) toast.warn(message);
 
       setIsLoading(false);
     }

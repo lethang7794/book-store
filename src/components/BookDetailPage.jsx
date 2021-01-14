@@ -24,10 +24,10 @@ const BookDetailPage = () => {
         if (response.ok) {
           setBook(data);
         } else {
-          alert('Sorry. Something went wrong.');
+          toast.warn('Sorry. Something went wrong.');
         }
       } catch (error) {
-        alert("Sorry. We can't connect to the server.");
+        toast.warn("Sorry. We can't connect to the server.");
       }
 
       setIsLoading(false);
@@ -45,12 +45,12 @@ const BookDetailPage = () => {
       });
 
       if (response.ok) {
-        alert('Added to favorites!');
+        toast.success('Added to favorites!');
       } else {
-        alert('Already added to favorites!');
+        toast.info('Already added to favorites!');
       }
     } catch (error) {
-      alert("We can't connect with the server!");
+      toast.warn("We can't connect with the server!");
     }
   };
 
