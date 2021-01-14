@@ -11,7 +11,7 @@ const HomePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [hasError, setHasError] = useState({ status: false });
   const [books, setBooks] = useState([]);
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -19,6 +19,8 @@ const HomePage = () => {
   useEffect(() => {
     async function fetchBooks() {
       setIsLoading(true);
+      // TODO: Fix screen flick when not found
+      setHasError({ status: false });
 
       try {
         const BACKEND_API = process.env.REACT_APP_BACKEND_API;
@@ -31,22 +33,30 @@ const HomePage = () => {
         }
 
         const response = await fetch(url);
-        const data = await response.json();
-
         if (response.ok) {
-          setBooks(data);
+          const data = await response.json();
+          if (data.length > 0) setBooks(data);
+          if (data.length === 0) {
+            setHasError({
+              status: true,
+              message: "Sorry. We can't found what you've looked for.",
+            });
+          }
         } else {
-          setErrorMessage(
-            `Sorry. Something went wrong while we were searching for the books.`
-          );
+          setHasError({
+            status: true,
+            message:
+              'Sorry. Something went wrong while we were searching for the books.',
+          });
         }
       } catch (error) {
-        setErrorMessage(`Sorry. We can't connect to the server.`);
+        setHasError({
+          status: true,
+          message: "Sorry. We can't connect to the server.",
+        });
       }
 
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 500);
+      setIsLoading(false);
     }
 
     fetchBooks();
@@ -71,7 +81,7 @@ const HomePage = () => {
 
       <SearchForm handleSearchFormSubmit={handleSearchFormSubmit} />
 
-      {errorMessage ? <div>{errorMessage}</div> : null}
+      {hasError.status ? <div>{hasError.message}</div> : null}
 
       {isLoading ? (
         <div>Loading</div>
