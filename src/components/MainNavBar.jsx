@@ -17,8 +17,8 @@ const MainNavBar = () => (
         <Nav.Link as={Link} to='/'>
           Home
         </Nav.Link>
-        <Nav.Link as={Link} to='/reading'>
-          Reading List
+        <Nav.Link as={Link} to='/favorites'>
+          Favorites
         </Nav.Link>
       </Nav>
       <Nav>

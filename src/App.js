@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import MainNavBar from './components/MainNavBar';
 import BookDetailPage from './components/BookDetailPage';
-import ReadingPage from './components/ReadingPage';
+import Favorites from './components/Favorites';
 import HomePage from './components/HomePage';
 import NotFoundPage from './components/NotFoundPage';
 
@@ -18,8 +18,8 @@ function App() {
           <Route exact path='/books/:id'>
             <BookDetailPage />
           </Route>
-          <Route exact path='/reading'>
-            <ReadingPage />
+          <Route exact path='/favorites'>
+            <Favorites />
           </Route>
           <Route exact path='/'>
             <HomePage BACKEND_API={BACKEND_API} />
