@@ -3,7 +3,7 @@ import Books from './Books';
 import Pagination from './Pagination';
 import SearchForm from './SearchForm';
 
-const HomePage = ({ BACKEND_API }) => {
+const HomePage = () => {
   const PER_PAGE = 10;
   const totalPages = 100 / PER_PAGE;
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,6 +20,7 @@ const HomePage = ({ BACKEND_API }) => {
       setIsLoading(true);
 
       try {
+        const BACKEND_API = process.env.REACT_APP_BACKEND_API;
         let url = `${BACKEND_API}/books?_page=${currentPage}&_limit=${PER_PAGE}`;
         // e.g. http://localhost:5000/books?_page=1&_limit=10
 
@@ -49,7 +50,7 @@ const HomePage = ({ BACKEND_API }) => {
     }
 
     fetchBooks();
-  }, [currentPage, query, BACKEND_API]);
+  }, [currentPage, query]);
 
   const handleNextPageClick = () => {
     setCurrentPage((currentPage) => currentPage + 1);
@@ -84,7 +85,7 @@ const HomePage = ({ BACKEND_API }) => {
         <div>Loading</div>
       ) : (
         <>
-          <Books books={books} BACKEND_API={BACKEND_API} />
+          <Books books={books} />
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
