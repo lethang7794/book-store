@@ -5,7 +5,7 @@ Created with love by: `Thang`
 <!-- View online at: `Your URL here` -->
 <!-- TODO: 🎉 Public online to CodePen/Repl.it/CodeSandbox/Netlify then update the link here -->
 
-Summary: This bookstore app is built with React, React Router and a custom fake backend.
+Summary: This bookstore app is built with React, React Router and a custom mock-up backend.
 
 <!-- ## Video Walkthrough
 Here's a walkthrough of implemented user stories.
@@ -16,28 +16,49 @@ To create a GIF, use [LiceCap](http://www.cockos.com/licecap/), [RecordIt](http:
 
 <!-- TODO: 🎬 Make a gif and show here -->
 
+## Installation
+
+### Requirements
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), and required Node >= 8.10 and npm >= 5.6 to start.
+
+### Getting Started
+
+    # 1. Clone this repo and install needed packages
+    git clone https://github.com/lethang7794/book-store.git
+    cd book-store
+    npm install
+
+    # 2. Start the mock-up backend server
+    npm run server
+
+    # 3. Run the app in the development mode.
+    npm start
+
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
 ## User Stories
 
 <!-- TODO: 🔴🟠🟢 ADD USER STORIES -->
 
 ### The following **required** functionalities are completed:
 
-- [ ] Build a more "complete" app with a custom (fake) backend.
-- [ ] Pagination.
-- [ ] Searching.
-- [ ] Routing to detail a detail page.
+- [x] Build a more "complete" app with a custom (fake) backend.
+- [x] Pagination.
+- [x] Searching.
+- [x] Routing to detail a detail page.
 
 ### The following **additional** features are implemented:
 
-- [ ] 🚀🚀🚀 This awesome README.md
+- [x] 🚀🚀🚀 This awesome README.md
 
 <!-- ## Time Spent and Lessons Learned -->
 <!-- Time spent: **X** hours spent in total. -->
 <!-- TODO: ⌛ Add time spent -->
 
 <!-- ### Challenges encountered while building the app:
-- A challange -->
-<!-- TODO: 🚧 What is the challanges?  -->
+- A challenge -->
+<!-- TODO: 🚧 What is the challenges?  -->
 
 <!-- ### Lessons Learned:
 - A lesson -->
